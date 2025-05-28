@@ -1,62 +1,48 @@
-# Fichiers Python
-__pycache__/
-*.py[cod]
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
-
-# Notebooks checkpoints
-.ipynb_checkpoints/
-
-# Données & modèles
-data/
-datasets/
-*.h5
-*.hdf5
-*.ckpt
-*.pb
-*.tflite
-*.pt
-*.onnx
-*.joblib
-*.pkl
-*.sav
-models/
-logs/
-outputs/
-runs/
-weights/
-
-# MLflow
-mlartifacts/
-
-mlruns/
-*.h5
-*.keras
-
-
-# Environnements virtuels
+# ⛔ Environnements virtuels
 env/
 venv/
 .venv/
 
-# Fichiers système
+# ⛔ Données & datasets
+data/
+datasets/
+
+# ⛔ Artefacts MLflow
+mlruns/
+
+# ✅ On garde les notebooks, images, scripts, etc.
+
+# 🧹 Fichiers Python compilés
+__pycache__/
+*.py[cod]
+
+# 🧹 Notebooks checkpoints
+.ipynb_checkpoints/
+
+# 🧹 Fichiers système
 .DS_Store
 Thumbs.db
 
-# Visual Studio Code
-.vscode/
-
-
-
-# Fichiers de test ou de debug
+# 🧹 Fichiers temporaires et de log
 *.log
 *.tmp
 *.bak
 
-# Secrets (à ne jamais versionner)
+# 🧹 Visual Studio Code
+.vscode/
+
+# ⛔ Fichiers de modèle lourds (optionnel si jamais tu en ajoutes à la racine)
+*.h5
+*.keras
+*.ckpt
+*.pt
+*.onnx
+*.pb
+*.pkl
+*.joblib
+*.sav
+
+# ⛔ Fichiers d’environnement ou secrets
 .env
+
 .env.*
-*
