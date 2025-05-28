@@ -130,7 +130,7 @@ extraire des **caractéristiques discriminantes robustes**.
 | Modèle       | Accuracy Test | AUC    | Observations |
 |--------------|----------------|--------|--------------|
 | **VGG16**     | 85%            | 0.94   | Overfitting léger, bon rappel, mais précision sur classe "normal" à améliorer |
-| **ResNet50**  | 79%            | 0.83   | Très bon équilibre précision/rappel |
+| **ResNet50**  | 79%            | 0.83   | Déséquilibre dans les prédictions : tendance à surclasser la pneumonie |
 | **DenseNet121** | **94%**      | **0.97** | Meilleure généralisation, surtout avec fine-tuning |
 
 ---
@@ -161,7 +161,8 @@ Chacun présente en détail les étapes spécifiques d'entraînement, les perfor
 
 ## 🧰 Suivi MLOps avec MLflow
 
-Un suivi rigoureux des expériences a été mis en place avec **MLflow** :
+Un suivi rigoureux des expériences a été mis en place avec **MLflow** : http://127.0.0.1:5000
+
 
 - **Tracking automatique** (metrics, modèles)
 - **Comparaison multi-modèles** sur l’interface Web
@@ -179,6 +180,7 @@ Un suivi rigoureux des expériences a été mis en place avec **MLflow** :
 👉 DenseNet121, couplé à un finetuning partiel, offre les **meilleures performances** parmi les modèles testés.
 
 🔄 **Prochaines étapes :**
+- Régularisation ou un équilibrage des classes pour affiner la performance en validation.
 - Tester sur un dataset plus diversifié.
 - Ajouter une interface utilisateur pour test clinique.
 - Déployer le modèle via API (Flask/FastAPI).
