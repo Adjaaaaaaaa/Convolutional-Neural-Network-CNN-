@@ -179,10 +179,11 @@ Un suivi rigoureux des expériences a été mis en place avec **MLflow** :
 👉 DenseNet121, couplé à un finetuning partiel, offre les **meilleures performances** parmi les modèles testés.
 
 🔄 **Prochaines étapes :**
-- Intégrer d'autres métriques orientées médical (sensibilité, spécificité).
 - Tester sur un dataset plus diversifié.
 - Ajouter une interface utilisateur pour test clinique.
 - Déployer le modèle via API (Flask/FastAPI).
+- Containeriser l’application avec Docker.
+- Intégrer des pratiques MLOps pour la production (CI/CD pour l’intégration continue, et Kubernetes pour l’orchestration des conteneurs)
 
 
 ## 📂 Structure du projet
