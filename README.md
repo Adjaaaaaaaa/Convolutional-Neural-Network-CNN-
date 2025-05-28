@@ -186,7 +186,7 @@ Un suivi rigoureux des expériences a été mis en place avec **MLflow** :
 
 
 ## 📂 Structure du projet
-
+```plaintext
 📁 data/chest_xray/
 ├── train/
 ├── val/              # (utilisé comme test final)
