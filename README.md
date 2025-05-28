@@ -39,6 +39,27 @@ Les modèles **ResNet50** et **DenseNet121** ont été partiellement **décongel
 ---
 ## 🧩 Présentation des modèles CNN
 
+### 📉 VGG16
+
+VGG16 est une architecture de réseau de neurones convolutifs développée par l’équipe d’Oxford Visual Geometry 
+Group (VGG). Elle se caractérise par :
+
+- Une **structure simple et uniforme** : empilement de couches convolutionnelles 3x3 avec ReLU, suivies de 
+max-pooling.
+- **16 couches profondes** (d’où le nom VGG16), incluant 13 convolutions et 3 couches fully connected.
+
+Elle a été largement utilisée comme **modèle de référence (baseline)** en vision par ordinateur.
+
+**Avantages clés :**
+- Facile à comprendre et à implémenter.
+- Très utilisée dans les travaux pédagogiques.
+- Offre de bonnes performances sur des tâches simples.
+
+**Limites :**
+- Plus lourde en nombre de paramètres.
+- Moins efficace sur des tâches complexes ou spécifiques (comme l’imagerie médicale).
+- Moins adaptée à des contextes où la généralisation fine est nécessaire.
+
 ### 🧬 DenseNet121
 
 DenseNet (Dense Convolutional Network) est une architecture introduite pour améliorer le **flux d’information 
@@ -70,34 +91,16 @@ performances empirent à mesure que le réseau s'approfondit).
 - Très bon compromis entre performance et complexité.
 - Architecture éprouvée dans des contextes réels.
 
-### 📉 VGG16
-
-VGG16 est une architecture de réseau de neurones convolutifs développée par l’équipe d’Oxford Visual Geometry 
-Group (VGG). Elle se caractérise par :
-
-- Une **structure simple et uniforme** : empilement de couches convolutionnelles 3x3 avec ReLU, suivies de 
-max-pooling.
-- **16 couches profondes** (d’où le nom VGG16), incluant 13 convolutions et 3 couches fully connected.
-
-Elle a été largement utilisée comme **modèle de référence (baseline)** en vision par ordinateur.
-
-**Avantages clés :**
-- Facile à comprendre et à implémenter.
-- Très utilisée dans les travaux pédagogiques.
-- Offre de bonnes performances sur des tâches simples.
-
-**Limites :**
-- Plus lourde en nombre de paramètres.
-- Moins efficace sur des tâches complexes ou spécifiques (comme l’imagerie médicale).
-- Moins adaptée à des contextes où la généralisation fine est nécessaire.
 ---
 
 ## 🖼️ Exploration du dataset
 * Il y a près de 3 fois plus d’images de patients atteints de pneumonie que d’images normales.
-* Le fait d’avoir plus d’images pour la pneumonie permet au modèle de mieux apprendre ses différentes manifestations visuelles
+* Ce déséquilibre peut amener le modèle à prédire la classe majoritaire, ici "PNEUMONIA", simplement parce que 
+c’est statistiquement plus fréquent.
+* Le fait d’avoir plus d’images pour la pneumonie permet au modèle de mieux apprendre ses différentes manifestations visuelles.
 * Les radios présentent une variabilité importante selon les cas, soulignant l’intérêt d’un modèle capable d’en 
 extraire des **caractéristiques discriminantes robustes**.
-* Ce déséquilibre peut amener le modèle à prédire la classe majoritaire, ici "PNEUMONIA", simplement parce que c’est statistiquement plus fréquent.
+
 
 🎯 Implications pour l’apprentissage
 * Risque : un modèle qui atteint 85% d'accuracy pourrait simplement toujours prédire "PNEUMONIA".
@@ -111,12 +114,10 @@ extraire des **caractéristiques discriminantes robustes**.
 
 ## ⚙️ Démarche de modélisation
 
-1. **Prétraitement :** redimensionnement (224x224 ,Taille standard pour les modèles ImageNet), normalisation.
+1. **Prétraitement :** redimensionnement (224x224 ,taille standard pour les modèles ImageNet), normalisation.
 2. **Transfert learning :**
-   - Suppression des couches de sortie initiales.
-   - Ajout d’un classificateur binaire (`Dense + Sigmoid`).
-   - Phase 1 : entraînement des couches supérieures uniquement.
-   - Phase 2 : **finetuning** de certaines couches pour ResNet50/DenseNet121.
+   - Phase 1 : entraînement sur des couches gelées.
+   - Phase 2 : **finetuning** des dernières couches pour ResNet50/DenseNet121.
 3. **Évaluation :**
    - Accuracy, Loss, ROC-AUC, matrice de confusion.
 4. **Suivi MLOps :**
@@ -124,7 +125,7 @@ extraire des **caractéristiques discriminantes robustes**.
 
 ---
 
-## 🧪 Résultats comparés
+## 📈 Comparaison des résultats
 
 | Modèle       | Accuracy Test | AUC    | Observations |
 |--------------|----------------|--------|--------------|
@@ -134,7 +135,6 @@ extraire des **caractéristiques discriminantes robustes**.
 
 ---
 
-## 📈 Comparaison des résultats
 
 Les courbes ci-dessous montrent la progression de l’**accuracy**, de la **loss** et de la **matrice de confusion** sur les ensembles d'entraînement et de validation pour chaque modèle :
 ### 📉 VGG16
@@ -150,9 +150,9 @@ Les courbes ci-dessous montrent la progression de l’**accuracy**, de la **loss
  ![Accuracy Curve](images/courbes_densenet121.png)
  ![Confusion matrix](images/matrice_densenet121.png)
 
-✅ DenseNet121 montre la convergence la plus stable avec une meilleure séparation entre les classes, même sur un jeu de test réduit.
+✅ DenseNet121 se distingue par un apprentissage stable et des performances fiables, avec de meilleurs résultats sur les métriques d’évaluation, même lorsque le jeu de test est limité.
 
-👉 Des notebooks séparés sont disponibles pour chaque architecture testée (VGG16, ResNet50, DenseNet121).
+👉 Des notebooks séparés sont disponibles pour chaque modèle testé (VGG16, ResNet50, DenseNet121).
 Chacun présente en détail les étapes spécifiques d'entraînement, les performances obtenues, les visualisations de métriques et les particularités du fine-tuning.
 
 🔍 Consulte-les pour approfondir l'analyse de chaque modèle.
@@ -163,7 +163,7 @@ Chacun présente en détail les étapes spécifiques d'entraînement, les perfor
 
 Un suivi rigoureux des expériences a été mis en place avec **MLflow** :
 
-- **Tracking automatique** (metrics, loss, courbes, modèles)
+- **Tracking automatique** (metrics, modèles)
 - **Comparaison multi-modèles** sur l’interface Web
 
 📸 L’interface MLflow :
@@ -187,7 +187,6 @@ Un suivi rigoureux des expériences a été mis en place avec **MLflow** :
 
 ## 📂 Structure du projet
 
-CNN
 📁 data/chest_xray/
 ├── train/
 ├── val/              # (utilisé comme test final)
@@ -198,8 +197,3 @@ CNN
 📜 README.md
 📜 requirements.txt
 📁 images/
-    ├── mlflow_ui.png
-    ├── accuracy_comparison.png
-    ├── loss_comparison.png
-    ├── pneu1.png
-    └── normal1.png

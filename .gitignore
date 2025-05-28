@@ -10,7 +10,6 @@ datasets/
 # ⛔ Artefacts MLflow
 mlruns/
 
-# ✅ On garde les notebooks, images, scripts, etc.
 
 # 🧹 Fichiers Python compilés
 __pycache__/
@@ -31,7 +30,7 @@ Thumbs.db
 # 🧹 Visual Studio Code
 .vscode/
 
-# ⛔ Fichiers de modèle lourds (optionnel si jamais tu en ajoutes à la racine)
+# ⛔ Fichiers de modèle lourds 
 *.h5
 *.keras
 *.ckpt
