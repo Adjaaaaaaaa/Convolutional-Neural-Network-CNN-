@@ -37,12 +37,6 @@ mlruns/
 *.keras
 
 
-# Images générées (graphes, courbes, etc.)
-*.jpg
-*.jpeg
-*.gif
-*.svg
-
 # Environnements virtuels
 env/
 venv/
