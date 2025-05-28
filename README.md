@@ -196,4 +196,4 @@ Un suivi rigoureux des expériences a été mis en place avec **MLflow** :
 📜 DenseNet121.ipynb
 📜 README.md
 📜 requirements.txt
-📁 images/
+📁 images/             # (courbes, matrices de confusion, mlflow...)
